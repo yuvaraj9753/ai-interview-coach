@@ -2,6 +2,7 @@ import streamlit as st
 import requests
 from PyPDF2 import PdfReader
 import os
+
 st.title("🤖 AI Interview Coach")
 
 API_URL = os.getenv("API_URL")
@@ -17,7 +18,6 @@ if "history" not in st.session_state:
 
 # ---------- SUMMARY ----------
 def show_summary():
-
     st.markdown("## 📊 Final Summary")
 
     if not st.session_state.history:
@@ -64,7 +64,12 @@ if st.button("Start Interview"):
         "history": []
     })
 
-    st.session_state.questions.append(r.json()["q"])
+    data = r.json()
+
+    if "q" in data:
+        st.session_state.questions.append(data["q"])
+    else:
+        st.error(f"API Error: {data}")
 
 
 # ---------- FLOW ----------
@@ -86,7 +91,12 @@ for i, q in enumerate(st.session_state.questions):
                 "mode": mode
             })
 
-            st.session_state.history.append(r.json()["result"])
+            data = r.json()
+
+            if "result" in data:
+                st.session_state.history.append(data["result"])
+            else:
+                st.error(f"API Error: {data}")
 
     # NEXT
     with col2:
@@ -97,10 +107,15 @@ for i, q in enumerate(st.session_state.questions):
                 "jd": jd,
                 "domain": domain,
                 "mode": mode,
-                "history": st.session_state.questions
+                "history": st.session_state.history   # FIXED
             })
 
-            st.session_state.questions.append(r.json()["q"])
+            data = r.json()
+
+            if "q" in data:
+                st.session_state.questions.append(data["q"])
+            else:
+                st.error(f"API Error: {data}")
 
     # END
     with col3:
@@ -108,7 +123,6 @@ for i, q in enumerate(st.session_state.questions):
 
             show_summary()
             st.stop()
-
 
     # SHOW RESULT
     if i < len(st.session_state.history):
