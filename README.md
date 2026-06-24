@@ -44,7 +44,7 @@ Copy code
 ## ⚙️ Tech Stack
 
 - Python 🐍
-- FastAPI / Flask (Backend)
+- FastAPI 
 - LangChain / LangGraph (Workflow Orchestration)
 - OpenAI / Groq / Gemini (LLMs)
 - JSON Structured Output
