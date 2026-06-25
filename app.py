@@ -67,10 +67,7 @@ if st.button("Start Interview"):
         }
     )
 
-    st.write("API_URL =", API_URL)
-    st.write("Request URL =", f"{API_URL}/question")
-    st.write("Status Code =", r.status_code)
-    st.write("Response =", r.text)
+
 
     data = r.json()
 
