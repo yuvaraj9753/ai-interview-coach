@@ -56,13 +56,21 @@ if st.button("Start Interview"):
     st.session_state.questions = []
     st.session_state.history = []
 
-    r = requests.post(f"{API_URL}/question", json={
-        "resume": resume,
-        "jd": jd,
-        "domain": domain,
-        "mode": mode,
-        "history": []
-    })
+    r = requests.post(
+        f"{API_URL}/question",
+        json={
+            "resume": resume,
+            "jd": jd,
+            "domain": domain,
+            "mode": mode,
+            "history": []
+        }
+    )
+
+    st.write("API_URL =", API_URL)
+    st.write("Request URL =", f"{API_URL}/question")
+    st.write("Status Code =", r.status_code)
+    st.write("Response =", r.text)
 
     data = r.json()
 
@@ -70,52 +78,6 @@ if st.button("Start Interview"):
         st.session_state.questions.append(data["q"])
     else:
         st.error(f"API Error: {data}")
-
-
-# ---------- FLOW ----------
-for i, q in enumerate(st.session_state.questions):
-
-    st.markdown(f"### Q{i+1}: {q}")
-
-    ans = st.text_area("Your Answer", key=f"ans_{i}")
-
-    col1, col2, col3 = st.columns(3)
-
-    # SUBMIT
-    with col1:
-        if st.button("Submit", key=f"sub_{i}"):
-
-            r = requests.post(f"{API_URL}/evaluate", json={
-                "q": q,
-                "a": ans,
-                "mode": mode
-            })
-
-            data = r.json()
-
-            if "result" in data:
-                st.session_state.history.append(data["result"])
-            else:
-                st.error(f"API Error: {data}")
-
-    # NEXT
-    with col2:
-        if st.button("Next", key=f"next_{i}"):
-
-            r = requests.post(f"{API_URL}/question", json={
-                "resume": resume,
-                "jd": jd,
-                "domain": domain,
-                "mode": mode,
-                "history": st.session_state.history   # FIXED
-            })
-
-            data = r.json()
-
-            if "q" in data:
-                st.session_state.questions.append(data["q"])
-            else:
-                st.error(f"API Error: {data}")
 
     # END
     with col3:
