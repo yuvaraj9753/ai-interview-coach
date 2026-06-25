@@ -5,7 +5,7 @@ import os
 
 st.title("🤖 AI Interview Coach")
 
-API_URL = os.getenv("API_URL")
+API_URL ="https://ai-interview-coach-2-294d.onrender.com/"
 
 
 # ---------- STATE ----------
