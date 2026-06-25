@@ -5,7 +5,7 @@ import os
 
 st.title("🤖 AI Interview Coach")
 
-API_URL ="https://ai-interview-coach-2-294d.onrender.com/"
+API_URL ="https://ai-interview-coach-2-294d.onrender.com"
 
 
 # ---------- STATE ----------
@@ -79,13 +79,4 @@ if st.button("Start Interview"):
     else:
         st.error(f"API Error: {data}")
 
-    # END
-    with col3:
-        if st.button("End", key=f"end_{i}"):
-
-            show_summary()
-            st.stop()
-
-    # SHOW RESULT
-    if i < len(st.session_state.history):
-        st.success(st.session_state.history[i])
+    
