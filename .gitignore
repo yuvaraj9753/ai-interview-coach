@@ -4,3 +4,4 @@ venv/
 VEenv/
 .env
 .vscode/
+interview_coach.db

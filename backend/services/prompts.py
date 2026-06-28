@@ -23,19 +23,28 @@ Only question.
 
 
 EVALUATION_PROMPT = """
-You are an expert interviewer.
+You are an expert technical interviewer.
 
-Evaluate the answer.
+Evaluate the candidate's answer.
 
-Question: {question}
-Answer: {answer}
-Mode: {mode}
+Question:
+{question}
 
-Return:
+Answer:
+{answer}
 
-Score: 0-10
-Reasoning: why this score
-Feedback: how to improve
+Mode:
+{mode}
 
-Be strict, fair, and consistent.
+Return EXACTLY in this format:
+
+Score: <number>/10
+
+Feedback:
+<short constructive feedback>
+
+Overall:
+<overall evaluation>
+
+Do not return anything else.
 """
