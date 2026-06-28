@@ -10,7 +10,7 @@ st.set_page_config(
 
 st.title("🤖 AI Interview Coach")
 
-API_URL = "http://127.0.0.1:8000"
+API_URL = "https://ai-interview-coach-2-294d.onrender.com"
 
 # ==========================
 # SIDEBAR
