@@ -245,6 +245,11 @@ if menu == "Interview":
                     "session_id": None
                 }
             )
+            st.write("Status Code: ", r.status_code)
+            st.code(r.text)
+
+            if r.status_code != 200:
+                st.stop()
 
             data = r.json()
 
